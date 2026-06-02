@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Policy Reviews | Stackly</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Plus Jakarta Sans',sans-serif;}
+
+body{
+background:linear-gradient(135deg,#eff6ff,#dbeafe,#f8fbff);
+color:#222;
+overflow-x:hidden;
+min-height:100vh;
+}
+
+/* HEADER */
+header{
+position:fixed;
+top:0;
+width:100%;
+height:70px;
+display:flex;
+justify-content:space-between;
+align-items:center;
+padding:0 25px;
+background:#fff;
+box-shadow:0 4px 15px rgba(0,0,0,.06);
+z-index:3000;
+}
+
+.header-left{display:flex;align-items:center;}
+.logo img{height:32px;}
+
+.profile{display:flex;gap:15px;align-items:center;}
+.profile i{color:#222;}
+
+#profileEmail{
+color:#aaa;
+font-size:11px;
+}
+
+#profileName{
+font-weight:600;
+font-size:14px;
+color:#222;
+}
+
+/* SIDEBAR */
+.sidebar{
+width:250px;
+background:#fff;
+border-right:1px solid #eee;
+position:fixed;
+top:70px;
+height:calc(100% - 70px);
+padding:20px;
+display:flex;
+flex-direction:column;
+z-index:2500;
+transition:0.3s;
+}
+
+.sidebar a{
+display:flex;
+gap:12px;
+padding:12px;
+border-radius:10px;
+color:#555;
+text-decoration:none;
+margin-bottom:5px;
+align-items:center;
+transition:0.2s;
+}
+
+.sidebar a:hover{
+background:#eef6ff;
+color:#0A4D8C;
+}
+
+.sidebar a.active{
+background:#0A4D8C;
+color:#fff;
+}
+
+.logout{
+color:#ff4d4d;
+border:1px solid rgba(255,77,77,0.2);
+background:rgba(255,77,77,0.05);
+margin-top:10px;
+padding:12px;
+border-radius:10px;
+display:flex;
+gap:12px;
+cursor:pointer;
+}
+
+/* MAIN */
+.main{
+margin-left:250px;
+padding:100px 30px;
+}
+
+/* REVIEW CARDS */
+.review{
+background:#fff;
+padding:20px;
+border-radius:15px;
+margin-bottom:20px;
+box-shadow:0 10px 30px rgba(0,0,0,.05);
+border:1px solid #eee;
+transition:0.3s;
+cursor:pointer;
+}
+
+.review:hover{
+transform:translateY(-5px);
+border-color:#0A4D8C;
+box-shadow:0 15px 40px rgba(10,77,140,0.15);
+}
+
+.review h4{
+margin-bottom:8px;
+}
+
+.stars{
+color:#0A4D8C;
+margin-bottom:8px;
+}
+
+/* PANEL */
+.panel{
+background:#fff;
+padding:25px;
+border-radius:15px;
+margin-top:30px;
+box-shadow:0 10px 30px rgba(0,0,0,.05);
+}
+
+.btn{
+background:#0A4D8C;
+border:none;
+padding:12px 20px;
+border-radius:8px;
+color:#fff;
+margin-top:10px;
+cursor:pointer;
+font-weight:600;
+}
+
+/* HAMBURGER */
+.hamburger{
+display:none;
+font-size:24px;
+cursor:pointer;
+color:#0A4D8C;
+margin-right:15px;
+}
+
+/* MOBILE */
+@media(max-width:768px){
+
+.hamburger{display:flex;}
+
+.sidebar{
+transform:translateX(-100%);
+top:70px;
+height:calc(100% - 70px);
+width:280px;
+}
+
+.sidebar.active{
+transform:translateX(0);
+}
+
+.main{
+margin-left:0;
+padding:90px 20px;
+}
+
+.overlay{
+top:70px;
+height:calc(100% - 70px);
+position:fixed;
+left:0;
+width:100%;
+background:rgba(0,0,0,0.3);
+opacity:0;
+visibility:hidden;
+transition:0.3s;
+z-index:2000;
+}
+
+.overlay.active{
+opacity:1;
+visibility:visible;
+}
+}
+
+/* PREMIUM INSURANCE REVIEW PAGE HOVERS */
+
+.btn{
+    transition:all .3s ease;
+}
+
+.btn:hover{
+    background:#083b6e;
+    transform:translateY(-4px);
+    box-shadow:0 12px 25px rgba(10,77,140,.30);
+}
+
+.panel{
+    transition:all .3s ease;
+}
+
+.panel:hover{
+    transform:translateY(-4px);
+    box-shadow:0 20px 45px rgba(10,77,140,.12);
+}
+
+.review{
+    transition:all .3s ease;
+}
+
+.review:hover{
+    transform:translateY(-8px);
+}
+
+.fa-bell,
+.fa-circle-user{
+    transition:all .3s ease;
+}
+
+.fa-bell:hover,
+.fa-circle-user:hover{
+    transform:scale(1.1);
+    color:#0A4D8C;
+}
+
+.sidebar a{
+    transition:all .3s ease;
+}
+
+</style>
+</head>
+
+<body>
+
+<header>
+<div class="header-left">
+<div class="hamburger" onclick="toggleSidebar()">
+<i class="fa-solid fa-bars"></i>
+</div>
+<div class="logo">
+<img src="assets/images/logo/stackly_logo.webp">
+</div>
+</div>
+
+<div class="profile">
+<i class="fa-regular fa-bell" onclick="go404()" style="cursor:pointer; font-size:18px;"></i>
+
+<i class="fa-regular fa-circle-user" onclick="go404()" style="cursor:pointer; font-size:22px;"></i>
+<div>
+<div id="profileName">User</div>
+<div id="profileEmail">user@mail.com</div>
+</div>
+</div>
+</header>
+
+<div class="overlay" id="overlay" onclick="toggleSidebar()"></div>
+
+<aside class="sidebar" id="sidebar">
+
+<a href="user_dashboard.html"><i class="fa-solid fa-house"></i>Dashboard</a>
+<a href="watchlist.html"><i class="fa-solid fa-heart"></i>My Policies</a>
+<a href="my_ratings.html" class="active"><i class="fa-solid fa-star"></i>Policy Reviews</a>
+<a href="us_settings.html"><i class="fa-solid fa-gear"></i>Settings</a>
+
+<div class="logout" onclick="logoutUser()">
+<i class="fa-solid fa-right-from-bracket"></i>Logout
+</div>
+
+</aside>
+
+<main class="main">
+
+<h1 style="margin-bottom:25px;font-weight:800;">Policy Reviews ⭐</h1>
+
+<!-- REVIEWS -->
+<div class="review" onclick="go404()">
+<h4>Life Insurance Policy</h4>
+<div class="stars">★★★★★</div>
+<p>Excellent policy coverage with smooth onboarding and professional support.</p>
+</div>
+
+<div class="review" onclick="go404()">
+<h4>Health Insurance Policy</h4>
+<div class="stars">★★★★☆</div>
+<p>Comprehensive healthcare coverage with responsive customer support.</p>
+</div>
+
+<div class="review" onclick="go404()">
+<h4>Vehicle Insurance Policy</h4>
+<div class="stars">★★★☆☆</div>
+<p>Reliable vehicle protection plan with quick claim processing experience.</p>
+</div>
+
+<!-- STATS -->
+<div class="panel">
+<h3>Policy Summary</h3>
+<p>Total Policies Held: <b>12</b></p>
+<p>Average Policy Rating: <b style="color:#0A4D8C;">4.1</b></p>
+
+<button class="btn" onclick="go404()">Manage Policies</button>
+</div>
+
+</main>
+
+<script>
+function toggleSidebar(){
+const sidebar = document.getElementById("sidebar");
+const overlay = document.getElementById("overlay");
+
+sidebar.classList.toggle("active");
+overlay.classList.toggle("active");
+}
+
+function go404(){ window.location.href="us_404.html"; }
+
+function logoutUser(){
+localStorage.clear();
+window.location.href="login.html";
+}
+
+const storedData = localStorage.getItem("userData");
+if(storedData){
+const user = JSON.parse(storedData);
+document.getElementById("profileName").textContent = user.role || "User";
+document.getElementById("profileEmail").textContent = user.email;
+}
+</script>
+
+</body>
+</html>

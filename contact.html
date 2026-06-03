@@ -2379,6 +2379,14 @@ subjectInput.focus()
 return
 }
 
+// Subject must contain at least one letter
+
+if(!/[A-Za-z]/.test(subject)){
+alert("Subject must contain at least one letter")
+subjectInput.focus()
+return
+}
+
 // MESSAGE
 
 if(message.length < 10){
